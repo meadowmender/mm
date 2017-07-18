@@ -1,0 +1,214 @@
+@font-face {
+  font-family: "Cinzel Decorative";
+  src: url('fonts/CinzelDecorative-Regular.ttf') format("truetype");
+}
+
+a.heading {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 20px;
+  font-family: "Cinzel Decorative";
+  font-weight: normal;
+  font-size: 50px;
+}
+
+h2.heading {
+  text-decoration: none;
+  color: #333333;
+  font-weight: normal;
+  padding-bottom: 10px;
+  font-size: 30px;
+}
+
+body {
+  background-color: #01634b;
+}
+
+.navbar-default {
+  background-color: #333333;
+  border-color: #333333;
+  margin: 0px;
+}
+
+
+.navbar-default .navbar-brand {
+  padding: 5px 5px;
+  color: #ffffff;
+  font-size: 40px;
+  font-weight:bold;
+  background-color: #333333;
+}
+
+
+.navbar-default .wide{    /* Added temporarily to make the brand stick to the middle of the top bar */
+  padding-top: 0px;
+  background-color: #333333;
+  max-width:100%;
+  height:110px;
+}
+
+#navbar {
+  background-color: #333333;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #ffffff;
+}
+
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #ffffff;
+  background-color: #333333;
+}
+.navbar-default .navbar-toggle {
+  border-color: #98a7c6;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #7a2b6a;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+
+
+
+.navbar-default .navbar-collapse
+.navbar-default .navbar-form{
+  background-color: #5E7D7E;
+  border-color: #ffffff;
+}
+
+.navbar-default .navbar-link {
+  color: #ffffff;
+}
+.navbar-default .navbar-link:hover {
+  color: #fed900;
+}
+/* The following is set to that the menu items stay at the right and there's padding from the right edge of the window*/
+.navbar-default .navbar-right {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 25px;
+
+}
+
+.top-spacer {
+  height:100px;
+}
+
+.login {
+  padding:50px;
+  border-radius: 20px;
+  background-color:#ffffff
+}
+
+.footer {
+	background: #e8f0ff;
+	height: auto;
+	padding-bottom: 30px;
+	position: relative;
+	width: 100%;
+	border-bottom: 1px solid #CCCCCC;
+	border-top: 1px solid #DDDDDD;
+}
+.footer p {
+	margin: 0;
+}
+.footer img {
+	max-width: 100%;
+}
+.footer h3 {
+	border-bottom: 1px solid #BAC1C8;
+	color: #54697E;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 27px;
+	padding: 40px 0 10px;
+	text-transform: uppercase;
+}
+.footer ul {
+	font-size: 13px;
+	list-style-type: none;
+	margin-left: 0;
+	padding-left: 0;
+	margin-top: 15px;
+	color: #7F8C8D;
+}
+.footer ul li a {
+	padding: 0 0 5px 0;
+	display: block;
+}
+.footer a {
+	color: #78828D
+}
+
+.footer-bottom {
+	background: #333333;
+	border-top: 1px solid #DDDDDD;
+  color: #FFFFFF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.footer-bottom.user-dashboard {
+  bottom: 0;
+  position: relative;
+  left: 0;
+  right: 0;
+	background: #333333;
+	border-top: 1px solid #DDDDDD;
+  color: #FFFFFF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.footer-bottom p.pull-left {
+	padding-top: 6px;
+}
+
+.social li {
+	background: none repeat scroll 0 0 #B5B5B5;
+	border: 2px solid #B5B5B5;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-o-border-radius: 50%;
+	-ms-border-radius: 50%;
+	border-radius: 50%;
+	float: left;
+	height: 36px;
+	line-height: 36px;
+	margin: 0 8px 0 0;
+	padding: 0;
+	text-align: center;
+	width: 36px;
+	transition: all 0.5s ease 0s;
+	-moz-transition: all 0.5s ease 0s;
+	-webkit-transition: all 0.5s ease 0s;
+	-ms-transition: all 0.5s ease 0s;
+	-o-transition: all 0.5s ease 0s;
+}
+.social li:hover {
+	transform: scale(1.15) rotate(360deg);
+	-webkit-transform: scale(1.1) rotate(360deg);
+	-moz-transform: scale(1.1) rotate(360deg);
+	-ms-transform: scale(1.1) rotate(360deg);
+	-o-transform: scale(1.1) rotate(360deg);
+}
+.social li a {
+	color: #EDEFF1;
+}
+.social li:hover {
+	border: 2px solid #2c3e50;
+	background: #2c3e50;
+}
+.social li a i {
+  padding-top: 8px;
+	font-size: 16px;
+	margin: 0 0 0 8px;
+	color: #EDEFF1 !important;
+}
