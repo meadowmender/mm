@@ -3,6 +3,11 @@
   src: url('fonts/CinzelDecorative-Regular.ttf') format("truetype");
 }
 
+@font-face {
+  font-family: "kaffeesatzthin";
+  src: url('fonts/yanonekaffeesatz-extralight-webfont.ttf') format("truetype");
+}
+
 a.heading {
   text-decoration: none;
   color: #ffffff;
@@ -15,14 +20,44 @@ a.heading {
 h2.heading {
   text-decoration: none;
   color: #333333;
-  font-weight: normal;
+  font-family: "kaffeesatzthin";
+  font-weight: bold;
   padding-bottom: 10px;
-  font-size: 30px;
+  font-size: 36px;
+  font-weight: normal;
+}
+
+h4.heading {
+  text-decoration: none;
+  color: #011a63;
+  font-family: "kaffeesatzthin";
+  font-weight: bold;
+  padding-bottom: 10px;
+  font-size: 24px;
 }
 
 body {
   background-color: #01634b;
 }
+
+.left {
+  float:left;
+}
+
+.right {
+  float:right;
+}
+
+.remove-selector {
+  color:#333333;
+  font-size:12px;
+}
+
+.remove-selector:hover {
+  color:#FF0000;
+  font-size:12px;
+}
+
 
 .navbar-default {
   background-color: #333333;

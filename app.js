@@ -8,13 +8,17 @@ var ejs = require("ejs");
 var http = require("http");
 //var crypto = require('crypto');
 var sha256 = require('sha256');
-//var request = require('request');
+var request = require('request');
 //var bmgaux = require('./bmgaux/bmgaux.js');
 var https = require('https');
 
 
-var app2 = express();
+var certdir;
+var envmode;
+var captchaSecret;
+const googleSiteVerify = "https://www.google.com/recaptcha/api/siteverify";
 
+var app2 = express();
 var httpServer = http.Server(app2);
 
 app2.get('*',function(req,res){
@@ -72,6 +76,7 @@ mongoclient.connect("mongodb://meadowworker:" + process.argv[2] + "@localhost:27
         //captchaSecret = doc[0].captchaSecret;
         certdir = doc[0].certdir;
         envmode = doc[0].envmode;
+        captchaSecret = doc[0].captchaSecret;
 
         console.log('hello!' + certdir + envmode);
 
@@ -111,3 +116,21 @@ app.get('/', function(req,res) {
   console.log(getTimeStamp() + 'Home|' + req.connection.remoteAddress)
   res.sendFile(__dirname + "/site/index.html");
 });
+
+app.get('/signup', function(req,res) {
+  console.log(getTimeStamp() + 'Home|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/signup.html");
+});
+
+app.post('/verifyRecaptcha',urlencodedParser,function(req,res){
+  //console.log('checking captcha');
+  var captchaRes=req.body.Response;
+  request ({uri : googleSiteVerify,
+    method : 'POST',
+    json : true,
+    form : {secret : captchaSecret,response : captchaRes}
+  }, function(error,response,body) {
+    //console.log('Captcha:' + error + " - " + JSON.stringify(response) + " - " + JSON.stringify(body));
+    res.send(response.body);
+  })
+})
