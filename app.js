@@ -9,13 +9,15 @@ var http = require("http");
 //var crypto = require('crypto');
 var sha256 = require('sha256');
 var request = require('request');
-//var bmgaux = require('./bmgaux/bmgaux.js');
+var mmaux = require('./mmaux/mmaux.js');
 var https = require('https');
+var rand = require('csprng');
 
 
 var certdir;
 var envmode;
 var captchaSecret;
+var mailpass;
 const googleSiteVerify = "https://www.google.com/recaptcha/api/siteverify";
 
 var app2 = express();
@@ -77,6 +79,7 @@ mongoclient.connect("mongodb://meadowworker:" + process.argv[2] + "@localhost:27
         certdir = doc[0].certdir;
         envmode = doc[0].envmode;
         captchaSecret = doc[0].captchaSecret;
+        mailpass = doc[0].mailconn;
 
         console.log('hello!' + certdir + envmode);
 
@@ -134,3 +137,62 @@ app.post('/verifyRecaptcha',urlencodedParser,function(req,res){
     res.send(response.body);
   })
 })
+
+app.get('/getPricing', function(req,res) {
+  var pricingData = meadow.collection("Pricing");
+  pricingData.find({}).toArray(function(err,doc) {
+    if (!err) {
+      res.format({'application/json': function(){res.send(doc)}})
+    }
+  })
+});
+
+app.get('/checkIfEmailExists',function (req,res) {
+  var users = meadow.collection('Users');
+  try {
+    users.find({"Email": req.query.email},{_id:0,Email:1}).toArray(function(err,docs) {
+      if (!err){
+        if (docs.length == 0)
+          res.end("EmailDoesNotExist")
+        else
+          res.end("EmailExists");
+      }
+      else {res.end("Error in fetching documents")}
+    });
+  }
+  catch (e) {res.end(e)};
+});
+
+app.post('/getsalt',urlencodedParser,function(req,res) {
+  //req.session.email = null;
+  //req.session.user = null;
+  res.end(rand(160,36));
+});
+
+app.post('/saveUser',urlencodedParser,function(req,res){
+  var users = meadow.collection('Users');
+  try {
+    users.find({"Email": req.body.User.Email},{_id:0,Email:1}).toArray(function(err,docs) {
+      if (!err){
+        if (docs.length == 0) {
+          users.insert(req.body.User, function(err,insertedObj) {
+            if (!err) {
+                  var emailTxt = '<p style="font-family:"Merriweather", serif;font-size:16px">Dear '+ req.body.User.FName +',<br><br>Thank you for registrying with Meadowmender.</p>';
+                  mmaux.mailer(mailpass,'support',req.body.User.Email,'Account Created',emailTxt,function(message,response) {});
+                  res.send('Account creation success!');
+            }
+            else {
+              res.send("Error creating profile. Please try again later")
+            }
+          });
+
+        }
+        else
+          res.end("EmailExists");
+      }
+    });
+  }
+  catch (e) {
+    res.end(e)
+  }
+});

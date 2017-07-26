@@ -50,8 +50,8 @@ function removeLocation(loc_pos) {
   for (var i = 0; i < total_loc;i++) {
       loc += '<table width="100%" id="form-group_prop_addr0"><tr><td width="65%"><div class="form-group" ><label for="address" id="form-group_prop_label' + i + '"><h4 class="heading">Property ' + (i + 1) + '</h4><button type="button" id="removeButton" class="btn btn-default btn-sm" onclick="removeLocation(' + i + ')"><span class="glyphicon glyphicon-remove remove-selector"></span> Remove </button></label><br /><label for="address" style="padding-top:20px">Address:</label></div>' +
       '<textarea class="form-control" rows="4" id="location' + i + '" placeholder="Re-Survey No./Plot Name or Number,&#10;&#13;Landmark, Village/Taluk/Town, &#10;&#13;District, PIN"></textarea>' +
-        '</td><td width="10%"></td><td width="25%"><div class="form-group"><label for="area">Area:</label></div><div class="form-group"><select class="form-control" id="area_selection' + i + '">' +
-              '<option value="">Select Area</option><option value="1">0.5 Acre - 1 Acre</option><option value="2">1 Acre - 2 Acre</option><option value="3">2 Acre - 4 Acre</option><option value="4"> > 5 Acres </option></select></div></td></tr></table><br /><table width="100%">' +
+        '</td><td width="10%"></td><td width="25%"><div class="form-group"><label for="area">Area(in Acres):</label></div><div class="form-group"><input type="text" name="area_selection' + i + '" class="form-control" id="area_selection' + i + '">' +
+              '</div></td></tr></table><br /><table width="100%">' +
     '<tr><td width="25%"><div class="form-group"><label for="gps_lat">GPS Latitude:</label></div><input type="text" class="form-control" name="lname" id="gps_lat' + i + '"  placeholder="Optional" required/>' +
       '</td><td width="5%"></td><td width="25%"><div class="form-group" ><label for="gps_long">GPS Longitude:</label></div><input type="text" class="form-control" name="lname" id="gps_long' + i + '"  placeholder="Optional" required/>' +
       '</td><td width="45%"></td></tr></table>';
@@ -88,8 +88,8 @@ function addAnotherProperty() {
 
   var newloc = '<table width="100%" id="form-group_prop_addr0"><tr><td width="65%"><div class="form-group" ><label for="address" id="form-group_prop_label' + loc_count + '"><h4 class="heading">Property ' + (parseInt(loc_count) + 1) + ' </h4> <button type="button" id="removeButton" class="btn btn-default btn-sm" onclick="removeLocation(' + loc_count + ')"><span class="glyphicon glyphicon-remove remove-selector"></span> Remove </button></label><br /><label for="address" style="padding-top:20px">Address:</label></div>' +
     '<textarea class="form-control" rows="4" id="location' + loc_count + '" placeholder="Re-Survey No./Plot Name or Number,&#10;&#13;Landmark, Village/Taluk/Town, &#10;&#13;District, PIN"></textarea>' +
-      '</td><td width="10%"></td><td width="25%"><div class="form-group"><label for="area">Area:</label></div><div class="form-group"><select class="form-control" id="area_selection' + loc_count + '">' +
-            '<option value="">Select Area</option><option value="1">0.5 Acre - 1 Acre</option><option value="2">1 Acre - 2 Acre</option><option value="3">2 Acre - 4 Acre</option><option value="4"> > 5 Acres </option></select></div></td></tr></table><br /><table width="100%">' +
+      '</td><td width="10%"></td><td width="25%"><div class="form-group"><label for="area">Area(in Acres):</label></div><div class="form-group"><input type="text" name="area_selection' + loc_count + '" class="form-control" id="area_selection' + loc_count + '">' +
+            '</div></td></tr></table><br /><table width="100%">' +
             '<tr><td width="25%"><div class="form-group"><label for="gps_lat">GPS Latitude:</label></div><input type="text" class="form-control" name="lname" id="gps_lat' + loc_count + '"  placeholder="Optional" required/>' +
               '</td><td width="5%"></td><td width="25%"><div class="form-group" ><label for="gps_long">GPS Longitude:</label></div><input type="text" class="form-control" name="lname" id="gps_long' + loc_count + '"  placeholder="Optional" required/>' +
     '</td><td width="45%"></td></tr></table><hr><br><br>';
@@ -143,24 +143,192 @@ function goToSignUp2() {
     $("#validateModal").modal('show');
     return false
   }
-  $.ajax({
-   type  : 'POST',
-   url   : '/verifyRecaptcha',
-   data  : {"Response":grecaptcha.getResponse()},
-   success: function(res) {
-     if (res.success) {
-       $('#step1').hide();
-       $('#step2').show();
-     } else if (res["error-codes"][0] == "missing-input-response") {
-        document.getElementById("modalMessage").innerHTML = "Please click checkbox to verify that you are a human :)";
+  if($('#captcha_ver').val() == "0") {
+    $.ajax({
+     type  : 'POST',
+     url   : '/verifyRecaptcha',
+     data  : {"Response":grecaptcha.getResponse()},
+     success: function(res) {
+       if (res.success) {
+         location.hash = '#Step2';
+         $('#captcha_ver').val("1");
+         $('#step1').hide();
+         $('#step2').show();
+       } else if (res["error-codes"][0] == "missing-input-response") {
+          document.getElementById("modalMessage").innerHTML = "Please click checkbox to verify that you are a human :)";
+          $("#validateModal").modal('show');
+        }
+      },
+      error : function (res) {
+        document.getElementById("modalMessage").innerHTML = "Error in validating captcha response - " + res.error_codes;
         $("#validateModal").modal('show');
+        return false;
       }
-    },
-    error : function (res) {
-      document.getElementById("modalMessage").innerHTML = "Error in validating captcha response - " + res.error_codes;
+    })
+  }
+  else {
+    location.hash = '#Step2';
+    $('#step1').hide();
+    $('#step2').show();
+  }
+
+}
+
+function goBackToStep2() {
+  $('#step2').show();
+  $('#step3').hide();
+  location.hash = "#Step2"
+  $('#summary_info').html('<i class="fa fa-circle-o-notch fa-spin" style="font-size:72px"></i>');
+}
+
+function goBackToStep1() {
+  $('#step1').show();
+  $('#step2').hide();
+  location.hash = "#"
+}
+
+function getPrice(priceList,val) {
+  alert('val is ' + val)
+  for (var i = 0;i < priceList.length;i++) {
+    if (priceList[i].Max >= val && priceList[i].Min < val) {
+      return priceList[i].Price;
+    }
+  }
+}
+
+$( "#email" )
+ .focusout(function() {
+   if ($('#emailaddr').val().length > 0)
+   $.ajax({
+     type: 'GET',
+     url: '/checkIfEmailExists',
+     data: {email: $('#emailaddr').val()},
+     success: function (res) {
+       //alert ("Email is " + res);
+       if (res == "EmailDoesNotExist") {
+         $('#emailvalidate').val("1");
+       }
+         else {
+           document.getElementById("modalMessage").innerHTML = "The email ID provided already exists.";
+           $("#validateModal").modal('show');
+           $('#emailvalidate').val("0");
+         }
+     },
+     error: function (res) {
+       alert ("unable to reach server");
+     }
+ });
+});
+
+function showSummary() {
+  for (var i = 0;i < parseInt($('#loc_count').val());i++) {
+    if ($('#location' + i).val() == "") {
+      document.getElementById("modalMessage").innerHTML = "Property " + (i + 1) + " has no location address specified.";
       $("#validateModal").modal('show');
-      return false;
+      return;
+    }
+    if ($('#area_selection' + i).val() == "") {
+      document.getElementById("modalMessage").innerHTML = "Please specify the size for Property " + (i + 1) + "." ;
+      $("#validateModal").modal('show');
+      return;
+    }
+    if (parseFloat($('#area_selection' + i).val()) > 100 ||  parseFloat($('#area_selection' + i).val()) < 0.5) {
+      document.getElementById("modalMessage").innerHTML = "Property " + (i + 1) + " has an area of " + $('#area_selection' + i).val() + " Acres. This is not something we can support at the moment." ;
+      $("#validateModal").modal('show');
+      return;
+    }
+  }
+  location.hash = '#Step3';
+  $.ajax({
+    type  : 'GET',
+    url   : '/getPricing',
+    success : function (data) {
+      var table_header = '<table class="table table-striped" style="text-align:center"><thead><tr><th style="text-align:center">No.</th><th style="text-align:center">Location</th><th style="text-align:center">Area</th><th style="text-align:center">Monthly Subscription Price</th></tr></thead><tbody>'
+      var table_rest = "";
+      var price = [];
+      var location_sum = 0;
+      var item_price = 0;
+      var summary_extra = "";
+      var to_be_confirmed = false;
+
+      for (var i = 0;i < parseInt($('#loc_count').val());i++) {
+        var lat,long;
+        if ($('#gps_lat' + i).val() == "" || $('#gps_long' + i).val() == "") {
+          lat = "-";
+          long = "-"
+        } else {
+          lat = $('#gps_lat' + i).val();
+          long = $('#gps_long' + i).val();
+        }
+        table_rest += '<tr><td>' + (1 + i) + '</td><td>' + $('#location' + i).val() + '<br>Latitude: ' + lat + '<br>Longitude: ' + long + '</td><td>' + $('#area_selection' + i).val() + '</td><td>';
+        item_price = getPrice(data,parseFloat($('#area_selection' + i).val()))
+        if (item_price == "To be confirmed") {
+          to_be_confirmed = true;
+          table_rest += 'TBD</td></tr>';
+        } else {
+          location_sum = location_sum + (item_price * 12);
+          table_rest += '&#8377;' + item_price + '</td></tr>';
+        }
+        //alert(table_rest);
+      }
+      if (to_be_confirmed) {
+        table_rest += '<tr style="font-weight:bold;color:#011a63"><td></td><td> Annual Total </td><td></td><td>To be confirmed.</td></tr></tbody></table>';
+        summary_extra = '<hr><br><br><p style="font-size:20px">You will be able to trial our services by just paying the amount for the first three months. This amount will be confirmed with you shortly. The remaining amount can be paid at the end of the three month tenure.</p>'
+
+      } else {
+        table_rest += '<tr style="font-weight:bold;color:#011a63"><td></td><td> Annual Total </td><td></td><td>&#8377;' + location_sum + '</td></tr></tbody></table>';
+        summary_extra = '<hr><br><br><p style="font-size:20px">You will be able to trial our services by just paying the amount for the first three months. This will be: <br> <p style="color:#01634b;font-size:24px;font-weight:bold">&#8377;' + (location_sum/4) + ' </p> <br><p style="font-size:20px">The remaining amount can be paid at the end of the three month tenure.</p>'
+      }
+      //alert('Pricing is ' + JSON.stringify(data))
+      $('#summary_info').html(table_header + table_rest + summary_extra);
+    },
+    error : function (err) {
+      alert('Err');
     }
   })
+  $('#step2').hide();
+  $('#step3').show();
+}
 
+
+function complete() {
+  $.ajax({
+    type: 'POST',
+    url: '/getsalt',
+    success: function (salt) {
+     //alert(salt);
+     var sha256 = new jsSHA('SHA-256', 'TEXT');
+     sha256.update($("#password").val() + salt);
+     var hash = sha256.getHash("HEX");
+     //alert("Hashed val" + hash);
+     var user = {};
+     var loc = [];
+     user.Email = $('#email').val();
+     user.Uppu = salt;
+     user.Hash = hash;
+     user.FName = $('#fname').val();
+     user.LName = $('#lname').val();
+     for (var i = 0;i < parseInt($('#loc_count').val());i++) {
+       var loc_info = {};
+       loc_info.Addr = $('#location' + i).val();
+       loc_info.Area = $('#area_selection' + i).val();
+       loc_info.Lat = $('#gps_lat' + i).val();
+       loc_info.Long = $('#gps_long' + i).val()
+       loc[i] = loc_info;
+     }
+     user.Locs = loc;
+     $.ajax({
+         type : 'POST',
+         url :"/saveUser",
+         data : {"User":user},
+         success : function(res) {
+           alert(JSON.stringify(res));
+         },
+         error : function(res) {alert("Error in saving wishlist!")}
+       })
+    },
+    error: function (err) {
+      alert("Unable to save wishlist")
+    }
+  })
 }

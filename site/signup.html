@@ -7,6 +7,7 @@
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src='https://www.google.com/recaptcha/api.js'></script>
   <script src="js/main.js"></script>
+  <script src="js/sha256.js"></script>
   <script>
     $(document).ready(function () {
         var loc_generator = $('#loc_count').val();
@@ -15,8 +16,8 @@
         for (var i = 0; i < parseInt(loc_generator);i++) {
           loc += '<table width="100%" id="form-group_prop_addr0"><tr><td width="65%"><div class="form-group" ><label for="address" id="form-group_prop_label' + i + '"><h4 class="heading">Property ' + (i + 1) + '</h4><button type="button" id="removeButton" class="btn btn-default btn-sm" onclick="removeLocation(' + i + ')"><span class="glyphicon glyphicon-remove remove-selector"></span> Remove </button></label><br /><label for="address" style="padding-top:20px">Address:</label></div>' +
           '<textarea class="form-control" rows="4" id="location' + i + '" placeholder="Re-Survey No./Plot Name or Number,&#10;&#13;Landmark, Village/Taluk/Town, &#10;&#13;District, PIN"></textarea>' +
-            '</td><td width="10%"></td><td width="25%"><div class="form-group"><label for="area">Area:</label></div><div class="form-group"><select class="form-control" id="area_selection' + i + '">' +
-                  '<option value="">Select Area</option><option value="1">0.5 Acre - 1 Acre</option><option value="2">1 Acre - 2 Acre</option><option value="3">2 Acre - 4 Acre</option><option value="4"> > 5 Acres </option></select></div></td></tr></table><br /><table width="100%">' +
+            '</td><td width="10%"></td><td width="25%"><div class="form-group"><label for="area">Area(in Acres):</label></div><div class="form-group"><input type="text" name="area_selection' + i + '" class="form-control" id="area_selection' + i + '">' +
+                  '</div></td></tr></table><br /><table width="100%">' +
                   '<tr><td width="25%"><div class="form-group"><label for="gps_lat">GPS Latitude:</label></div><input type="text" class="form-control" name="lname" id="gps_lat' + i + '"  placeholder="Optional" required/>' +
                     '</td><td width="5%"></td><td width="25%"><div class="form-group" ><label for="gps_long">GPS Longitude:</label></div><input type="text" class="form-control" name="lname" id="gps_long' + i + '"  placeholder="Optional" required/>' +
           '</td><td width="45%"></td></tr></table>';
@@ -29,8 +30,25 @@
        else
        $('#removeButton').css("visibility", "visible")
 
-       //$('#step2').hide();
+       $('#step2').hide();
+       $('#step3').hide();
     })
+
+    window.onhashchange = function() {
+      if (location.hash == "#Step2") {
+        $('#step2').show();
+        $('#step3').hide();
+      } else if (location.hash == "") {
+        $('#step2').hide();
+        $('#step1').show();
+      }
+
+    }
+
+    window.onload = function (){
+      location.hash = "#";
+    }
+
   </script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
@@ -83,7 +101,8 @@
             <div class="col-sm-1">
             </div>
             <div class="col-sm-10 login" >
-              <h2 class="heading">New User Sign-Up</h2>
+              <h2 class="heading">Account Set-Up</h2>
+              <p>Kindly fill in the required details.</p><br />
               <input style="display:none" type="text" name="fakeusernameremembered"/><input style="display:none" type="password" name="fakepasswordremembered"/>
               <div class="form-group" id="form-group_login_fname">
                 <label for="fname">First Name:</label>
@@ -128,17 +147,34 @@
               <div id="location_info">
 
             </div>
+            <div style="text-align:center">
+              <button class="btn btn-warning" onclick="addAnotherProperty()">Add Another Property</button>
+            </div>
             <br /><br />
-            <button class="btn btn-primary left" onclick="addAnotherProperty()">Add Another Property</button>
-            <button class="btn btn-primary right">Next</button>
+            <button class="btn btn-primary left" onclick="goBackToStep1()">Back</button>
+            <button class="btn btn-primary right" onclick="showSummary()">Next</button>
           </div>
         </div>
+        <div class="row" id="step3">
+          <div class="col-sm-12 login" >
+            <h2 class="heading">Account Summary</h2>
+            <p>Please review your Meadowmender account summary. In case you need to modify any information please use the back button. To complete your order click 'Submit Order'.</p>
+            <br />
+            <div id="summary_info" style="text-align:center">
+              <i class="fa fa-circle-o-notch fa-spin" style="font-size:72px"></i>
+          </div>
+          <br /><br />
+          <button class="btn btn-primary left" onclick="goBackToStep2()">Back</button>
+          <button class="btn btn-primary right" onclick="complete()">Submit Order</button>
+        </div>
+      </div>
         <div class="row top-spacer">
         </div>
 
       </div>
       <input type="hidden" name="loc_count" id="loc_count" value="1" />
-
+      <input type="hidden" name="captcha_ver" id="captcha_ver" value="0" />
+      <input type="hidden" name="emailvalidate" id="emailvalidate" value="1"  />
       <footer>
 <div class="footer" id="footer">
 <div class="container">
