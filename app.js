@@ -12,6 +12,7 @@ var request = require('request');
 var mmaux = require('./mmaux/mmaux.js');
 var https = require('https');
 var rand = require('csprng');
+var usersession = require('client-sessions');
 
 
 var certdir;
@@ -22,6 +23,14 @@ const googleSiteVerify = "https://www.google.com/recaptcha/api/siteverify";
 
 var app2 = express();
 var httpServer = http.Server(app2);
+
+app.use(usersession({
+  cookieName: 'session',
+  //The secret key will need to come from the database
+  secret: 'random_string_goes_here',
+  duration: 30 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+}));
 
 app2.get('*',function(req,res){
   if (envmode == "prod") {
@@ -179,6 +188,8 @@ app.post('/saveUser',urlencodedParser,function(req,res){
             if (!err) {
                   var emailTxt = '<p style="font-family:"Merriweather", serif;font-size:16px">Dear '+ req.body.User.FName +',<br><br>Thank you for registrying with Meadowmender.</p>';
                   mmaux.mailer(mailpass,'support',req.body.User.Email,'Account Created',emailTxt,function(message,response) {});
+                  req.session.email = req.body.User.Email;
+                  req.session.name = req.body.User.FName;
                   res.send('Account creation success!');
             }
             else {
@@ -195,4 +206,26 @@ app.post('/saveUser',urlencodedParser,function(req,res){
   catch (e) {
     res.end(e)
   }
+});
+
+
+app.get('/home',urlencodedParser, function (req,res) {
+  if (req.session && req.session.email) {
+    res.render(__dirname + "/site/home.ejs",{email : req.session.email,fname: req.session.name});
+    console.log("Call made to Home " + req.session.email);
+  } else {
+    res.redirect('/');
+  }
+});
+
+
+app.get('/logout',function (req,res) {
+  if ((req.session && req.session.user)) {
+    req.session.email = null;
+    req.session.name = null;
+    res.end("Log-off success");
+  } else {
+    res.end("unable to logoff");
+  }
+
 });

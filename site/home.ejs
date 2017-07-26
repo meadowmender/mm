@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="css/main.css" >
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  <script src="js/main.js"></script>
+  <script src="js/sha256.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script>
+
+    $(document).ready(function() {
+      if (getCookie("NewAccount") == "True") {
+          deleteCookie("NewAccount");
+          $('#$new_account_alert').show();
+      }
+    });
+  </script>
+</head>
+<body>
+  <nav class="navbar navbar-default">
+        <div class="nav-container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+          <a class="heading" href="#">MeadowMender</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><div class="welcome-message">Hello, <br> <%=fname%>!</div></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#" onclick="getUserProfileDetails($('#email').val())">Profile</a></li>
+                  <li><a href="#" onclick="logout();">Logout</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Help</a></li>
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+
+      <div class="container">
+        <div class="alert alert-success" role="alert" id="new_account_alert" style="display:none">
+          <strong> Congratulations!!! </strong> Your account has been created successfully. This is your Meadowmender dashboard. Our reports for your property will be published on this page.
+        </div>
+      </div>
+
+<input type="hidden" name="email" id="email" value="<%=email%>">
+<input type="hidden" name="fname" id="fname" value="<%=fname%>">
+<footer>
+<div class="footer-bottom"><!--/.footer-->
+
+<div class="container">
+<div class="row">
+  <div class="col-sm-2">
+    <a href="https://www.instantssl.com/ssl-certificate-products/multi-domain-ssl-certificate.html">
+      <img src="https://ssl.comodo.com/images/comodo_secure_seal_113x59_transp.png" alt="Multi Domain SSL" width="113" height="59" style="border: 0px;"><br> <span style="color:#FFFFFF;font-weight:bold; font-size:7pt">Multi Domain SSL</span></a><br>
+  </div>
+  <div class="col-sm-8" style="padding-top:20px">
+    <p class="pull-left"> Copyright © meadowmender.com 2017 </p>
+    <br />
+    </div>
+    <div class="col-sm-2" style="padding-top:20px">
+      <p class="pull-right" style="padding-top:6px"> Design by <a href="mailto:trznt.technologies@gmail.com" style="color:#ffffff">trznt</a></a>.</p>
+     </div>
+
+</div>
+
+
+</div>
+</div>
+<!--/.footer-bottom-->
+</footer>
+
+
+</body>
+</html>

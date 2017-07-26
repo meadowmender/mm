@@ -246,3 +246,12 @@ body {
 	margin: 0 0 0 8px;
 	color: #EDEFF1 !important;
 }
+
+
+.welcome-message {
+  padding:10px;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: right;
+
+}

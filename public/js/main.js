@@ -1,3 +1,31 @@
+function deleteCookie(name) {
+    document.cookie = name +'=;path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+ d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+          c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+          return c.substring(name.length, c.length);
+      }
+  }
+  return "";
+}
+
+
 function validateEmail(email) {
     /*//var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;*/
     var re = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
@@ -188,7 +216,6 @@ function goBackToStep1() {
 }
 
 function getPrice(priceList,val) {
-  alert('val is ' + val)
   for (var i = 0;i < priceList.length;i++) {
     if (priceList[i].Max >= val && priceList[i].Min < val) {
       return priceList[i].Price;
@@ -292,6 +319,8 @@ function showSummary() {
 
 
 function complete() {
+  document.getElementById("processingMessage").innerHTML = "Creating Account";
+  $("#processingModal").modal('show');
   $.ajax({
     type: 'POST',
     url: '/getsalt',
@@ -322,13 +351,24 @@ function complete() {
          url :"/saveUser",
          data : {"User":user},
          success : function(res) {
-           alert(JSON.stringify(res));
+           setCookie("NewAccount","True",2);
+           window.location.href = "/home";
          },
-         error : function(res) {alert("Error in saving wishlist!")}
+         error : function(res) {alert("Error in creating account!")}
        })
     },
     error: function (err) {
-      alert("Unable to save wishlist")
+      alert("Unable to create account")
     }
+  })
+}
+
+
+function logout() {
+  $.ajax({
+    type : 'GET',
+    url :"/logout",
+    success : function(res) {window.location.href = "/";},
+    error : function(res) {alert("Error logging out")}
   })
 }
