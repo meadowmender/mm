@@ -134,6 +134,11 @@
               </div>
               <input type="text" class="form-control" name="lname" id="lname"  required/>
               <br />
+              <div class="form-group" id="form-group_login_phone">
+                <label for="email">Phone:</label>
+              </div>
+              <input type="text" class="form-control" name="phone" id="phone"  required/>
+              <br />
               <div class="form-group" id="form-group_login_email">
                 <label for="email">Email:</label>
               </div>
@@ -185,7 +190,7 @@
           </div>
           <br /><br />
           <button class="btn btn-primary left" onclick="goBackToStep2()">Back</button>
-          <button class="btn btn-primary right" onclick="complete()">Submit Order</button>
+          <button class="btn btn-primary right" onclick="complete()" id="completeButton" disabled>Submit Order</button>
         </div>
       </div>
         <div class="row top-spacer">

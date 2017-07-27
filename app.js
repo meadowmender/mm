@@ -13,6 +13,7 @@ var mmaux = require('./mmaux/mmaux.js');
 var https = require('https');
 var rand = require('csprng');
 var usersession = require('client-sessions');
+var ObjectId = require('mongodb').ObjectID;
 
 
 var certdir;
@@ -184,6 +185,7 @@ app.post('/saveUser',urlencodedParser,function(req,res){
     users.find({"Email": req.body.User.Email},{_id:0,Email:1}).toArray(function(err,docs) {
       if (!err){
         if (docs.length == 0) {
+          req.body.User.created = new Date();
           users.insert(req.body.User, function(err,insertedObj) {
             if (!err) {
                   var emailTxt = '<p style="font-family:"Merriweather", serif;font-size:16px">Dear '+ req.body.User.FName +',<br><br>Thank you for registrying with Meadowmender.</p>';
@@ -218,9 +220,53 @@ app.get('/home',urlencodedParser, function (req,res) {
   }
 });
 
+app.post('/getLocationSummary',urlencodedParser, function (req,res){
+  var users = meadow.collection('Users');
+  try {
+    users.find({"Email": req.body.info},{_id:0,Locs:1}).toArray(function(err,docs) {
+      if (!err){
+        res.format({'application/json': function(){res.send(docs[0].Locs)}})
+      }
+    });
+  } catch (e){
+    res.end(e);
+  }
+
+})
+
+app.get('/getUserProfileDetails', function (req,res) {
+  var users = meadow.collection('Users');
+  console.log('checking for ' + req.query.userid);
+  if ((req.session && req.session.email)) {
+    users.find({"Email": req.query.userid},{"_id":1,"Email":1,"Phone":1,"FName":1,"LName":1}).toArray(function(err,docs){
+      if (!err) {
+        if (docs.length == 1) {
+          console.log('Found');
+          res.format({'application/json': function(){res.send(docs)}})
+        }
+        else {
+          var nothing = [];
+          res.format({'application/json': function(){res.send(nothing)}})
+        }
+      }
+    });
+  } else
+  res.redirect('/');
+});
+
+app.post('/saveProfileChanges',urlencodedParser, function (req,res) {
+  //console.log("Name is " + req.body.hostname);
+  if (req.session && req.session.email) {
+    var users = meadow.collection('Users');
+    users.update({"_id" : new ObjectId(req.body._id)},{$set:{"FName":req.body.fname,"LName":req.body.lname,"Phone":req.body.phone}}, function(err) {
+      if (!err) {req.session.name = req.body.fname;res.redirect('/home');}
+      else {res.send("Error in updating product status")}
+    })
+  }
+});
 
 app.get('/logout',function (req,res) {
-  if ((req.session && req.session.user)) {
+  if ((req.session && req.session.email)) {
     req.session.email = null;
     req.session.name = null;
     res.end("Log-off success");

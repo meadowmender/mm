@@ -15,8 +15,12 @@
     $(document).ready(function() {
       if (getCookie("NewAccount") == "True") {
           deleteCookie("NewAccount");
-          $('#$new_account_alert').show();
+          $('#new_account_alert').show();
       }
+
+
+      getLocationSummary();
+
     });
   </script>
 </head>
@@ -42,7 +46,7 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#" onclick="getUserProfileDetails($('#email').val())">Profile</a></li>
+                  <li><a href="#" onclick="getUserProfileDetails()">Profile</a></li>
                   <li><a href="#" onclick="logout();">Logout</a></li>
                 </ul>
               </li>
@@ -52,11 +56,34 @@
           </div><!--/.nav-collapse -->
         </div>
       </nav>
+      <div class="container padder">
 
-      <div class="container">
-        <div class="alert alert-success" role="alert" id="new_account_alert" style="display:none">
-          <strong> Congratulations!!! </strong> Your account has been created successfully. This is your Meadowmender dashboard. Our reports for your property will be published on this page.
+      </div>
+      <div class="container stage">
+        <div class="row padder">
         </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="alert alert-success" role="alert" id="new_account_alert" style="display:none">
+              <strong> Congratulations!!! </strong> Your account has been created successfully. We will be reaching out to you shortly via email for planning a visit to your property.
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 class="heading" id="headingDesc"> Your property informaton:  </h2>
+            <div id="propertySummary">
+              <div style="width:100%;text-align:center">
+                <i class="fa fa-circle-o-notch fa-spin" style="font-size:72px"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row padder">
+        </div>
+      </div>
+      <div class="container padder">
+
       </div>
 
 <input type="hidden" name="email" id="email" value="<%=email%>">

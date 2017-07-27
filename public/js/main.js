@@ -144,7 +144,11 @@ function goToSignUp2() {
     document.getElementById("modalMessage").innerHTML = "Please enter a valid Last Name.";
     $("#validateModal").modal('show');
     return false;
-
+  }
+  if ($('#phone').val() == "") {
+    document.getElementById("modalMessage").innerHTML = "Please enter a phone number.";
+    $("#validateModal").modal('show');
+    return false;
   }
   if ($('#email').val() == "") {
     document.getElementById("modalMessage").innerHTML = "Please enter a valid Email.";
@@ -308,6 +312,7 @@ function showSummary() {
       }
       //alert('Pricing is ' + JSON.stringify(data))
       $('#summary_info').html(table_header + table_rest + summary_extra);
+      $('#completeButton').prop('disabled', false);
     },
     error : function (err) {
       alert('Err');
@@ -337,6 +342,7 @@ function complete() {
      user.Hash = hash;
      user.FName = $('#fname').val();
      user.LName = $('#lname').val();
+     user.Phone = $('#phone').val();
      for (var i = 0;i < parseInt($('#loc_count').val());i++) {
        var loc_info = {};
        loc_info.Addr = $('#location' + i).val();
@@ -363,6 +369,60 @@ function complete() {
   })
 }
 
+
+
+function getUserProfileDetails() {
+  $('#headingDesc').html('Profile Information:');
+  $('#propertySummary').html('<div style="width:100%;text-align:center"><i class="fa fa-circle-o-notch fa-spin" style="font-size:72px"></i></div>');
+  //alert("Getting User information");
+  $.ajax({
+      type : 'GET',
+      url :"/getUserProfileDetails",
+      data : {"userid":$('#email').val()},
+      success : function(res) {
+        var data = "";
+        data += '<br><br><form action="/saveProfileChanges" method="POST"><div class="row"><div class="col-sm-4" style="text-align:right"><div class="form-group"><label for="name">Name:</label></div></div>';
+        data += '<div class="col-sm-6" style="text-align:center"><div class="form-group"><input type="text" class="form-control" value="' + res[0].FName + '" name="fname"></div></div></div>';
+        data += '<div class="row"><div class="col-sm-4" style="text-align:right"><div class="form-group"><label for="name">Name:</label></div></div>';
+        data += '<div class="col-sm-6" style="text-align:center"><div class="form-group"><input type="text" class="form-control" value="' + res[0].LName + '" name="lname"></div></div></div>';
+        data += '<div class="row"><div class="col-sm-4" style="text-align:right"><div class="form-group"><label for="phone">Mobile:</label></div></div>';
+        data += '<div class="col-sm-6" style="text-align:center"><div class="form-group"><input type="text" class="form-control" value="' + res[0].Phone + '" name="phone"></div></div></div>';
+        data += '<div class="row"><div class="col-sm-4" style="text-align:right"><div class="form-group"><label for="email">Email:</label></div></div>';
+        data += '<div class="col-sm-6" style="text-align:center"><div class="form-group"><input type="text" class="form-control" value="' + res[0].Email + '" name="email" id="email" readonly><input type="hidden" name="_id" id="_id" value="' + res[0]._id + '"></div></div></div>';
+        data += '<div class="row"><div class="col-sm-4" style="text-align:right"><div class="form-group"><label for="password">Password:</label></div></div>';
+        data += '<div class="col-sm-6" style="text-align:center"><div class="form-group"><input type="password" class="form-control" value="******" id="password" readonly><a href="#" data-target="#changePassword" data-toggle="modal" style="font-size:10px;float:right">Change Password</a></div></div></div>';
+        data += '<div class="row"></br></div><div class="row"><div class="col-sm-6" style="text-align:right">' + '<button class="btn btn-primary" name="Save" type="submit" style="background-color:#454282">Save Changes</button></div>';
+        data += '<div class="col-sm-6" style="text-align:left">' + '<button class="btn btn-primary" name="Back" style="background-color:#454282" onclick="location.href=\'/home \';return false;">Back</button></div></div></form>';
+
+        $('#propertySummary').html(data);
+      },
+      error : function(res) { alert ("Error reading from server");}
+  });
+
+}
+
+function getLocationSummary() {
+  $.ajax({
+    type: 'POST',
+    url: '/getLocationSummary',
+    data: {info: $('#email').val()},
+    success: function (res) {
+      var container = "";
+      for( var i = 0;i < res.length;i++) {
+        container += '<div class="bs-callout bs-callout-info"><h4>Location ' + (i+1)  + ' </h4><font class="label">Address:</font> ' + res[i].Addr + '<br><font class="label">Area:</font> ' + res[i].Area +  ' Acre(s)<br>';
+        if (res[i].Lat == "" || res[i].Long == "") {
+          container += 'Latitude: -  | Longitude: - </div>'
+        } else {
+          container += '<font class="label">Latitude:</font> ' + res[i].Lat + '  | <font class="label">Longitude:</font> ' + res[i].Long + ' </div>'
+        }
+      }
+      $('#propertySummary').html(container);
+    },
+    error: function (err) {
+      alert('Error reading form server');
+    }
+  });
+}
 
 function logout() {
   $.ajax({
