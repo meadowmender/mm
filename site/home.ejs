@@ -50,7 +50,7 @@
                   <li><a href="#" onclick="logout();">Logout</a></li>
                 </ul>
               </li>
-              <li><a href="#">Help</a></li>
+              <li><a href="#" onclick="$('#help_modal').modal('show');">Help</a></li>
 
             </ul>
           </div><!--/.nav-collapse -->
@@ -77,6 +77,29 @@
         </div>
       </div>
       </div>
+
+
+      <div class="modal" id="help_modal" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title" id="help_modal-title-id">We are here to help!</h4>
+            </div>
+            <div class="modal-body">
+            <span class="glyphicon glyphicon-info-sign"></span>
+              <p id="help_modal-p-id">
+                In case you have any queries, please send us an email at <a href="mailto:support@meadowmender.com">support@meadowmender.com.</a>
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-primary">Close</button>
+          </div>
+
+        </div>
+      </div>
+      </div>
+
 
       <div class="modal fade" id="warning_modal" role="dialog">
         <div class="modal-dialog">

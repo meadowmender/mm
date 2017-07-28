@@ -526,7 +526,7 @@ function passWordReset() {
             data : {"username": $('#username').val()},
             success : function (res) {
               if (res == 'mailsent')
-              $('#passwordChangeButton').html('<p>Done</p>');
+              $('#passwordChangeButton').html('<p style="font-size:20px">Done.</p>');
                 $('#mail_sent-title-id').text('Success');
                 $('#mail_sent-p-id').text('We have sent a link to your registered email address using which you can change your password.');
                 $('#mail_sent').modal('show');
@@ -578,7 +578,7 @@ function validateAndReset() {
                $('#password_changed-title-id').text('Success');
                $('#password_changed-p-id').text('Password changed sucessfully.');
                $('#password_changed').modal('show');
-               $('#changePassword').html('<p>Password Changed</p>');
+               $('#changePassword').html('<p>Password Changed</p><br><a href="/"><p style="font-size:20px">Login Now!</p></a>');
             }
            },
            error : function(res) {alert("Error in setting password")}

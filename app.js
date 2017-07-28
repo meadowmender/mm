@@ -75,7 +75,7 @@ app.use(urlencodedParser); // for parsing application/x-www-form-urlencoded
 app.set('view engine','ejs');
 
 
-mongoclient.connect("mongodb://meadowworker:" + process.argv[2] + "@localhost:27017/meadow", function(err,db) {
+mongoclient.connect("mongodb://worker:" + process.argv[2] + "@localhost:27017/meadow", function(err,db) {
   if (!err){
     console.log("We are connected");
     meadow = db;
@@ -96,7 +96,7 @@ mongoclient.connect("mongodb://meadowworker:" + process.argv[2] + "@localhost:27
         if (envmode == "prod") {
           urlHost = "home.meadowmender.com";
         } else if (envmode == "dev") {
-          urlHost = "dev.meadowmender.com";
+          urlHost = "dev.meadowmender.com:3000";
         }
 
 
@@ -351,7 +351,7 @@ app.post('/resetPassword',urlencodedParser,function(req,res) {//change the statu
           aux_passwordReset.insert({"email":req.body.username,"FP":setval}, function(err,result) {
             if (!err) {
               //console.log('inserted fp');
-              mmaux.mailer(mailpass,'support',req.body.username,'Password Reset','<b>Click the link below to change your password:</b><br><br><a href="https://dev.meadowmender.com/rpf?c=' + setval + '" >Change Password</a> <br><br> - Team Meadowmender',function(message,response) {
+              mmaux.mailer(mailpass,'support',req.body.username,'Password Reset','<b>Click the link below to change your password:</b><br><br><a href="https://' + urlHost + '/rpf?c=' + setval + '" >Change Password</a> <br><br> - Team Meadowmender',function(message,response) {
                 res.end('mailsent');
               });
             }
