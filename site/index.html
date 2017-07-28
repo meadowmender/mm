@@ -7,7 +7,14 @@
   <link rel="stylesheet" href="css/main.css" >
   <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/sha256.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script>
+
+  $(document).ready(function(){
+
+  });
+  </script>
 </head>
 <body>
   <nav class="navbar navbar-default">
@@ -34,6 +41,42 @@
         </div>
       </nav>
 
+      <div id="processingModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="processingModalLabel">
+        <div class="modal-dialog">
+          <div class = "modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body" style="text-align:center">
+              <i class="fa fa-circle-o-notch fa-spin" style="font-size:72px"></i>
+              <br />
+                <p id="processingMessage"></p>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="modal" id="invalid_password" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Uh - oh!</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                 The username or password is incorrect.
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-primary" >Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
       <div class="container">
         <div class="row top-spacer">
         </div>
@@ -53,7 +96,11 @@
             <input type="password" class="form-control" name="email" id="login_password" required/>
             <div>
               <p class="forgot-password"> <a href="/forgotPassword" style="float:left">Forgot password</a></p>
-              <p class="forgot-password"> <a href="/forgotPassword" style="float:right">New user Sign-up</a></p>
+              <p class="forgot-password"> <a href="/signup" style="float:right">New user Sign-up</a></p>
+            </div>
+            <br />
+            <div class="row" id="login" style="padding-top:15px;text-align:center">
+              <button class="btn btn-primary btn-lg" onclick="return doLogin('');">Login</button>
             </div>
           </div>
           <div class="col-sm-3">

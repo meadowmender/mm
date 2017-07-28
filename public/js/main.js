@@ -424,6 +424,236 @@ function getLocationSummary() {
   });
 }
 
+
+function changePassword() {
+  try {
+    //alert("logging in with " + $(login_username).val() + " and " + $(login_password).val());
+    $.ajax({
+      type: 'POST',
+      url: '/getSaltForUser',
+      data: {user: $('#email').val()},
+      success: function (salt) {
+       //alert(salt);
+       var sha256 = new jsSHA('SHA-256', 'TEXT');
+       sha256.update($('#e_password').val() + salt);
+       var hash = sha256.getHash("HEX");
+       //alert("Hashed val" + hash);
+       $.ajax({
+         type: 'POST',
+         url: '/getsalt',
+         success: function (newsalt) {
+          //alert(newsalt);
+          var sha2562 = new jsSHA('SHA-256', 'TEXT');
+          sha2562.update(newsalt + hash);
+          var newhash = sha2562.getHash("HEX");
+          //alert("New calculated Salt" + newhash);
+          $.ajax({
+            type: 'POST',
+            url: '/changePassword',
+            data: {attempt: newhash,gensalt: newsalt,user: $('#fname').val(),email: $('#email').val()},
+            success: function (data) {
+             //alert("Performing Login: Result is " + data);
+             if (data == "Login Success") {
+               //alert('login with existing password is success.');
+               $.ajax({
+                 type: 'POST',
+                 url: '/getPasswordChangeSalt',
+                 success: function (salt_for_new_pass) {
+                  //alert("Got Salt for new Password" + salt);
+                  var sha256 = new jsSHA('SHA-256', 'TEXT');
+                  sha256.update($("#login_password").val() + salt_for_new_pass);
+                  var hash = sha256.getHash("HEX");
+                  //alert("Hashed val" + hash);
+                  var changedPassData = '{"Password" : "'+ hash +'", "Uppu": "' + salt_for_new_pass + '", "user": "' + $('#email').val() + '"}';
+                  $.ajax({
+                      type : 'POST',
+                      url :"/saveNewPassword",
+                      data : {"changedPassData":changedPassData},
+                      success : function(res) {
+                        $('#information_modal-title-id').text('Success');
+                        $('#information_modal-p-id').text('Your password has been changed.');
+                        $('#information_modal').modal('show');
+                      },
+                      error : function(res) {alert("Error Changing Password!")}
+                    })
+                 },
+                 error: function (err) {
+                   alert("Unable to save wishlist")
+                 }
+               })
+             } else {
+               $('#error_modal-title-id').text("Error");
+               $('#error_modal-p-id').text('Current password is incorrect.');
+               $('#error_modal').modal('show');
+             }
+           },
+           error: function (err) {
+             alert("Unable to login")
+           }
+         });
+        },
+        error: function (err) {
+          alert("Unable to login")
+        }
+      });
+      },
+      error: function (err) {
+        alert("Unable to save wishlist")
+      }
+    })
+  }
+  catch (e) {alert("Error!!! - "+e)}
+}
+
+function passWordReset() {
+  if ($('#username').val() == '') {
+    $('#warning_modal-title-id').text('Warning');
+    $('#warning_modal-p-id').text('Please provide an email address.');
+    $('#warning_modal').modal('show');
+    return false;
+  }
+  //alert('posting');
+  $('#passwordChangeButton').html('<i class="fa fa-circle-o-notch fa-spin" style="font-size:24px;"></i><br><p>Processing...</p>')
+  $.ajax({
+     type  : 'POST',
+     url   : '/verifyRecaptcha',
+     data  : {"Response":grecaptcha.getResponse()},
+     success: function(res) {
+       if (res.success) {
+          $.ajax({
+            type  : 'POST',
+            url   : '/resetPassword',
+            data : {"username": $('#username').val()},
+            success : function (res) {
+              if (res == 'mailsent')
+              $('#passwordChangeButton').html('<p>Done</p>');
+                $('#mail_sent-title-id').text('Success');
+                $('#mail_sent-p-id').text('We have sent a link to your registered email address using which you can change your password.');
+                $('#mail_sent').modal('show');
+            },
+            error : function (err) {
+              alert ("Error: " + err);
+            }
+          })
+        } else if (res["error-codes"][0] == "missing-input-response") {
+          $('#warning_modal-title-id').text('Warning');
+          $('#warning_modal-p-id').text('Please click checkbox to verify that you are a human :)');
+          $('#warning_modal').modal('show');
+        }
+      },
+      error : function (res) {
+        alert("Error in validating captcha response - "+  res.error_codes);
+      }
+    })
+}
+
+function validateAndReset() {
+  if ($('#password').val().length < 6) {
+    $('#warning_modal-title-id').text('Warning');
+    $('#warning_modal-p-id').text('Password needs to be more than 6 characters.');
+    $('#warning_modal').modal('show');
+    return false;
+  } else if ($('#password').val() != $('#repassword').val()) {
+    $('#warning_modal-title-id').text('Warning');
+    $('#warning_modal-p-id').text('Password do not match.');
+    $('#warning_modal').modal('show');
+    return false;
+  } else if ($('#password').val() == $('#repassword').val()) {
+    $.ajax({
+      type: 'POST',
+      url: '/getsalt',
+      success: function (salt) {
+       //alert(salt);
+       var sha256 = new jsSHA('SHA-256', 'TEXT');
+       sha256.update($("#password").val() + salt);
+       var hash = sha256.getHash("HEX");
+       //alert("Hashed val" + hash);
+     $.ajax({
+           type : 'POST',
+           url :"/setPassword",
+           data : {"c": $('#c').val() , "h" : hash, "s": salt},
+           success : function(res) {
+             if (res == "success") {
+               password_changed
+               $('#password_changed-title-id').text('Success');
+               $('#password_changed-p-id').text('Password changed sucessfully.');
+               $('#password_changed').modal('show');
+               $('#changePassword').html('<p>Password Changed</p>');
+            }
+           },
+           error : function(res) {alert("Error in setting password")}
+         })
+      },
+      error: function (err) {
+        alert("Unable to get salt")
+      }
+    })
+  }
+}
+
+function doLogin(action) {
+  $('#processingModal').modal({
+    backdrop: 'static',
+    keyboard: false
+  })
+  document.getElementById("processingMessage").innerHTML = "Logging In";
+  $("#processingModal").modal('show');
+  try {
+    //alert("logging in with " + $(login_username).val() + " and " + $(login_password).val());
+    var uid_hash = $('#login_username').val()
+    //alert(uid_hash);
+    $.ajax({
+      type: 'POST',
+      url: '/getSaltForUser',
+      data: {user: uid_hash},
+      success: function (salt) {
+       //alert(salt);
+       var sha256 = new jsSHA('SHA-256', 'TEXT');
+       sha256.update($('#login_password').val() + salt);
+       var hash = sha256.getHash("HEX");
+       //alert("Hashed val" + hash);
+       $.ajax({
+         type: 'POST',
+         url: '/getsalt',
+         success: function (newsalt) {
+          //alert(newsalt);
+          var sha2562 = new jsSHA('SHA-256', 'TEXT');
+          sha2562.update(newsalt + hash);
+          var newhash = sha2562.getHash("HEX");
+          //alert("New calculated Salt" + newhash);
+          $.ajax({
+            type: 'POST',
+            url: '/plogin',
+            data: {attempt: newhash,gensalt: newsalt,user: uid_hash,email: $('#login_username').val()},
+            success: function (data) {
+             //alert("Performing Login: Result is " + data);
+             if (data == "Login Success") {
+               if(action == "") {
+                 window.location.href = "/home";
+               }
+             } else {
+               $('#processingModal').modal('hide');
+               $('#invalid_password').modal('show');
+             }
+           },
+           error: function (err) {
+             alert("Unable to login")
+           }
+         });
+        },
+        error: function (err) {
+          alert("Unable to login")
+        }
+      });
+      },
+      error: function (err) {
+        alert("Unable to save wishlist")
+      }
+    })
+  }
+  catch (e) {alert("Error!!! - "+e)}
+}
+
 function logout() {
   $.ajax({
     type : 'GET',
