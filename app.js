@@ -130,9 +130,34 @@ app.get('/', function(req,res) {
   res.sendFile(__dirname + "/site/index.html");
 });
 
-app.get('/signup', function(req,res) {
-  console.log(getTimeStamp() + 'Home|' + req.connection.remoteAddress)
-  res.sendFile(__dirname + "/site/signup.html");
+app.get('/aboutus', function(req,res) {
+  console.log(getTimeStamp() + 'AboutUs|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/aboutus.html");
+});
+
+app.get('/services', function(req,res) {
+  console.log(getTimeStamp() + 'Services|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/services.html");
+});
+
+app.get('/carepackages', function(req,res) {
+  console.log(getTimeStamp() + 'CarePackages|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/carepackages.html");
+});
+
+app.get('/lms', function(req,res) {
+  console.log(getTimeStamp() + 'AboutUs|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/lms.html");
+});
+
+app.get('/faqs', function(req,res) {
+  console.log(getTimeStamp() + 'FAQs|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/faqs.html");
+});
+
+app.get('/howitworks', function(req,res) {
+  console.log(getTimeStamp() + 'CarePackages|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/howitworks.html");
 });
 
 app.post('/verifyRecaptcha',urlencodedParser,function(req,res){

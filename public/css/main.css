@@ -8,9 +8,136 @@
   src: url('fonts/yanonekaffeesatz-extralight-webfont.ttf') format("truetype");
 }
 
+.carousel {
+  height: 500px;
+  margin-bottom: 60px;
+  margin: -10px;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  z-index: 10;
+}
+
+/* Declare heights because of positioning of img element */
+.carousel .item {
+  height: 500px;
+  background-color: #777;
+}
+
+.carousel-inner > .item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 500px;
+}
+
+.carousel-caption p {
+  margin-left: 60%;
+  line-height: 1.4;
+}
+
+.carousel_title {
+  font-family: "Cinzel Decorative";
+  /*background-color: #2dcb73;*/
+  background-color: rgba(45, 203, 115, 0.9);
+  padding: 10px;
+  color:#003951;
+  font-size:22px;
+  text-shadow: 1px 1px #000000;
+  margin-bottom: 0px;
+}
+
+.carousel_desc {
+  background:  rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  margin-left: 60%;
+  color:#FFFFFF;
+  font-size:20px;
+  text-shadow: 1px 1px #000000;
+  font-family: "kaffeesatzthin";
+}
+
+.myCarousel-buttons {
+  padding:10px;
+  font-size:22px;
+  color:#000000;
+  font-weight:bold
+}
+
+
+
+.block_img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    margin: 30px auto;
+    border: 5px solid rgba(0, 0, 0, 0.3);
+}
+
+.marketing {
+  background-color: #ffffff;
+  padding: 20px;
+  padding-top: 40px;
+  border-radius: 10px
+}
+
+.icon_wrap {
+  font-size: 2em;
+  padding: 26px;
+}
+
+div.mid-row-block {
+  text-align: center;
+  padding-top: 2%;
+  background-color: rgba(45, 203, 115, 0);
+  color: rgba(0, 0, 0, 0.3);
+  -webkit-transition: padding-top,color,background-color 0.5s; /* For Safari 3.1 to 6.0 */
+  -webkit-font-smoothing: antialiased;
+  transition: padding-top,color,background-color 0.5s;
+  font-smoothing: antialiased;
+}
+
+div.mid-row-block:hover {
+  padding-top: 0%;
+  color: rgba(0, 57, 81, 1);
+  background-color: rgb(45, 203, 115);
+}
+
+@-webkit-keyframes test {
+    from {background-color: rgba (45,203,115,0);}
+    to {background-color: rgba (45,203,115);}
+}
+
+/* Standard syntax */
+@keyframes test {
+    from {background-color: rgba (45,203,115,0);}
+    to {background-color: rgba (45,203,115);}
+}
+
 .container.stage {
   background-color: #ffffff;
   padding: 100px;
+}
+
+.page-heading{
+  text-align: center;
+  font-family: "kaffeesatzthin";
+  color: #ffffff;
+  padding:20px;
+  font-size: 48px;
+  font-weight: bold;
+  background-color: rgb(45, 203, 115);
+}
+
+.navbar-right {
+  font-family: "kaffeesatzthin";
+}
+
+.static {
+  font-family: 'Open Sans', sans-serif;
 }
 
 .location_holder {
@@ -73,6 +200,13 @@ body {
   color:#FF0000;
   font-size:12px;
 }
+
+
+
+
+
+
+
 
 
 .navbar-default {
@@ -151,6 +285,10 @@ body {
 
 .top-spacer {
   height:100px;
+}
+
+.top-spacer-front {
+  height:50px;
 }
 
 .login {
