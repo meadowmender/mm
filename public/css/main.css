@@ -8,6 +8,30 @@
   src: url('fonts/yanonekaffeesatz-extralight-webfont.ttf') format("truetype");
 }
 
+p.statictext {
+  font-size: 16px;
+}
+
+div.image.statictext {
+  padding:20px;
+  text-align: center;
+}
+
+h3.statictext {
+  color: #33ccff;
+}
+
+a {
+  color: #2dcb73;
+}
+
+.green {
+  color: #2dcb73;
+}
+
+.to_top{width:40px; height:38px; display:block; background:#fff; -webkit-border-radius:50%; -moz-border-radius:50%; border-radius:50%; color:#aaa; -webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;transition:all 0.2s ease-out; position:fixed; bottom:20px; right:20px; cursor:pointer; text-align:center; padding-top:2px;display:none; opacity:0.6;-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);-moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);}
+.to_top:hover{ background:#2dcb73; color:#fff; opacity:1;}
+
 .carousel {
   height: 500px;
   margin-bottom: 60px;

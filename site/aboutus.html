@@ -10,6 +10,17 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <script src="js/main.js"></script>
   <script src="js/sha256.js"></script>
+  <script>
+  $(document).ready(function(){
+    // Add smooth scrolling to all links
+    $(".to_top").on('click', function(event) {
+      $('html, body').animate({
+          scrollTop:  $( $(this).attr('href') ).offset().top;
+      }, 500);
+      return false;
+    });
+  });
+  </script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 <body>
@@ -23,7 +34,7 @@
               <span class="icon-bar"></span>
             </button>
 
-          <a class="heading" href="#">MeadowMender</a>
+          <a class="heading">MeadowMender</a>
           </div>
           <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -40,7 +51,10 @@
       </nav>
 
 
+      <a class="to_top" href="#" style="display: block;"><i class="fa fa-angle-up fa-2x"></i></a>
 
+      <div class="row top-spacer-front">
+      </div>
       <div class="container page-heading">
         <div class="row">
           About Us
@@ -50,81 +64,62 @@
       <div class="container stage static">
 
         <div class="row">
-          <p>
+          <p class="statictext">
 Our community consists of a group of individuals who has been practicing small-scale agriculture for well over 40 years in the state of Kerala. We are passionate about the work we do and we are passionate about our home state. We know the land and what it takes to maintain it
 
           </p>
         </div>
+          <div class="row">
+   <h3 class="statictext">The times are changing</h3>
+
+          </div>
+
+        <div class="row">
+          <p class="statictext">
+            The last few decades have brought a lot of changes to the demography of Kerala. Priorities have changed and many people are unable to find the time to pursue our traditional culture of subsistence agriculture – concentrating more on full-time occupation outside the state and now, increasingly, out of the country.
+
+            We understand that given an opportunity, most people would like to tend to their land — keep it weed free, keep an eye on the coconut trees, fertilize the crops when needed and perhaps even construct a compound wall, but can’t find the time to do so.
+          </p>
+        </div>
+
+        <div class="row"><h3 class="statictext">Meadowmender - Your feet on the ground!</h3></div>
+
+        <div class="row">
+          <p class="statictext">
+            Our primary aim is to assist you by being your hands and feet on the ground. Tending to and taking care of your asset or property—through timely visits to your plot, checking your grove for infestation by pests and insects, store and manage any produce as per your request. We will also periodically send you reports with pictures and a write up about your land and how best you can look to utilize it further.
+          </p>
+        </div>
 
 
+
+
+        <div class="row">
+        <p class="statictext">
+
+        <b>MeadowMender</b> is a subsidiary of the <a href="http://www.ajaxconstructioncompany.com/" >Ajax Construction Company</a> which has been operating in the state of Kerala for well over 25 years. K. G. Praphulla Kumar, who graduated as an engineer from CET – Trivandrum, is the Chairperson of the Board.</p>
+      </div>
+
+      <div class="row">
+        <div class="image statictext">
+          <img src="/images/KGPK.jpg" />
+        </div>
+      </div>
+      <div class="row">
+        <p class="statictext">Mr. K. G. Praphulla Kumar himself is a subsistence agriculturist.
+
+            MeadowMender is further supported by agricultural experts and professors in the field of Botany and Dendrology.</p>
+      </div>
+      <div class="row">
+        <p class="statictext green"><b>And last but not the least, we are passionate about our planet. Our methods and practices revolve around the use of fertilizer and pesticide that are non-toxic to our environment and the life that it sustains.</b></p>
+      </div>
         <div class="row top-spacer">
         </div>
-
       </div>
 
-      <div class="footer" id="footer">
-      <div class="container">
-        <div class="row">
-            <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
-                <h3> Meadowmender.com </h3>
-                <ul>
-                  <li> <a href="http://www.meadowmender.com/index.php/about-us/" target="_blank"> About Us </a> </li>
-                    <!--<li> <a href="#"> Careers </a> </li>
-                    <li> <a href="#"> Advertise with us </a> </li>-->
-
-                </ul>
-            </div>
-            <!--<div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
-              <h3> Products & Services </h3>
-              <ul>
-                    <li> <a href="#"> Gift Registers </a> </li>
-                    <li> <a href="#"> Sell your products on our site. </a> </li>
-                    <li> <a href="#"> Partner Login. </a> </li>
-                </ul>
-            </div>-->
-            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12 ">
-              <h3> Help </h3>
-              <ul>
-                    <li> <a href="http://www.meadowmender.com/index.php/faqs/" target="_blank"> FAQs + T&C </a> </li>
-                    <li> <a href="http://www.meadowmender.com/index.php/how-it-works/" target="_blank"> How it works </a> </li>
-                    <!--<li> <a href="#"> Privacy Policy </a> </li>-->
-                </ul>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
-              <h3> Connect with us </h3>
-              <ul class="social">
-                  <li> <a href="https://www.facebook.com/MeadowMender" target="#"> <i class=" fa fa-facebook">   </i> </a> </li>
-                  <li> <a href="https://twitter.com/MeadowMender" target="#"> <i class="fa fa-twitter">   </i> </a> </li>
-              </ul>
-            </div>
-
-            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 ">
-           <!--     <h3> Join our newsletter </h3>
-                <ul>
-                    <li>
-                        <div class="input-append newsletter-box text-center">
-                            <input type="text" class="full text-center" placeholder="Email ">
-                            <button class="btn btn-success" type="button"> Thank you! <i class="fa fa-long-arrow-right"> </i> </button>
-                        </div>
-                    </li>
-                </ul>-->
-                <h3> Learn More </h3>
-                <p>MeadowMender provides land maintenance services to land owners with property in the state of Kerala. Click here to learn more!</p><br>
-                <div style="text-align:center">
-                  <button class="btn bt-lg btn-default" onclick="location.href = 'http://www.meadowmender.com/index.php/land-maintenance-services/'">Learn More</button>
-                </div>
-            </div>
-
-        </div>
-        <!--/.row-->
+      <div class="row top-spacer-front">
       </div>
-      <!--/.container-->
-      </div>
-      <!--/.footer-->
-      <div style="display:none" id="raqval">
-      &raquo;
-      </div>
-      <input type="hidden" name="showTrending" value="False" id="showTrending" />
+
+      <footer>
       <div class="footer-bottom">
       <div class="container">
       <div class="row">
