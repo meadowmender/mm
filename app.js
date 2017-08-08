@@ -35,7 +35,7 @@ app.use(usersession({
 
 app2.get('*',function(req,res){
   if (envmode == "prod") {
-    res.redirect('https://home.meadowmender.com' + req.url);
+    res.redirect('https://www.meadowmender.com' + req.url);
   }
   else if (envmode == "dev") {
     res.redirect('https://dev.meadowmender:3000' + req.url);
@@ -94,7 +94,7 @@ mongoclient.connect("mongodb://worker:" + process.argv[2] + "@localhost:27017/me
         console.log('hello!' + certdir + envmode);
 
         if (envmode == "prod") {
-          urlHost = "home.meadowmender.com";
+          urlHost = "www.meadowmender.com";
         } else if (envmode == "dev") {
           urlHost = "dev.meadowmender.com:3000";
         }
