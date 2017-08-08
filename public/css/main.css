@@ -9,7 +9,15 @@
 }
 
 p.statictext {
-  font-size: 16px;
+  font-size: 20px;
+}
+
+b,strong {
+  color: #2dcb73;
+}
+
+.center {
+  text-align: center;
 }
 
 div.image.statictext {
@@ -27,6 +35,23 @@ a {
 
 .green {
   color: #2dcb73;
+}
+
+ol {
+  font-size: 20px;
+}
+
+ul {
+  font-size: 20px;
+}
+
+li.page {
+  padding: 5px;
+}
+
+
+.padding-top {
+  padding-top: 30px;
 }
 
 .to_top{width:40px; height:38px; display:block; background:#fff; -webkit-border-radius:50%; -moz-border-radius:50%; border-radius:50%; color:#aaa; -webkit-transition:all 0.2s ease-out;-moz-transition:all 0.2s ease-out;-ms-transition:all 0.2s ease-out;-o-transition:all 0.2s ease-out;transition:all 0.2s ease-out; position:fixed; bottom:20px; right:20px; cursor:pointer; text-align:center; padding-top:2px;display:none; opacity:0.6;-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);-moz-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);}
@@ -420,7 +445,7 @@ body {
 }
 .social li a i {
   padding-top: 8px;
-	font-size: 16px;
+	font-size: 20px;
 	margin: 0 0 0 8px;
 	color: #EDEFF1 !important;
 }

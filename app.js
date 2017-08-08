@@ -130,6 +130,21 @@ app.get('/', function(req,res) {
   res.sendFile(__dirname + "/site/index.html");
 });
 
+app.get('/login', function(req,res) {
+  console.log(getTimeStamp() + 'Login|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/login.html");
+});
+
+app.get('/signup', function(req,res) {
+  console.log(getTimeStamp() + 'Signup|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/signup.html");
+});
+
+app.get('/contactus', function(req,res) {
+  console.log(getTimeStamp() + 'ContactUs|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/contactus.html");
+});
+
 app.get('/aboutus', function(req,res) {
   console.log(getTimeStamp() + 'AboutUs|' + req.connection.remoteAddress)
   res.sendFile(__dirname + "/site/aboutus.html");
