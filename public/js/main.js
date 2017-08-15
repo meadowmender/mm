@@ -66,7 +66,7 @@ function removeLocation(loc_pos) {
   for (var i = 0; i < parseInt(total_loc);i++) {
     var item = {};
     item.location = $('#location' + i).val();
-    item.area = $('#area_selection' + i + ' option:selected').val();
+    item.area = $('#area_selection' + i).val();
     item.lat = $('#gps_lat' + i).val();
     item.long = $('#gps_long' + i).val();
     data_array[i] = item;
@@ -104,7 +104,7 @@ function removeLocation(loc_pos) {
       continue;
     else {
       $('#location' + j).val(data_array[i].location);
-      $('#area_selection' + j + ' option[value="' + data_array[i].area + '"]').prop('selected',true);
+      $('#area_selection' + j).val(data_array[i].area);
       $('#gps_lat' + j).val(data_array[i].lat);
       $('#gps_long' + j).val(data_array[i].long);
       j++;
