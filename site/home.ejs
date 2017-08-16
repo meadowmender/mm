@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <title>MeadowMender | Home.</title>
   <script src="js/jquery-3.2.1.min.js"></script>
   <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" >
   <link rel="stylesheet" href="css/main.css" >
@@ -45,9 +46,9 @@
               <li><div class="welcome-message">Hello, <br> <%=fname%>!</div></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#" onclick="getUserProfileDetails()">Profile</a></li>
-                  <li><a href="#" onclick="logout();">Logout</a></li>
+                <ul class="dropdown-menu" style="font-size:18px;">
+                  <li><a href="#" onclick="getUserProfileDetails()" style="font-weight:600">Profile</a></li>
+                  <li><a href="#" onclick="logout();" style="font-weight:600">Logout</a></li>
                 </ul>
               </li>
               <li><a href="#" onclick="$('#help_modal').modal('show');">Help</a></li>
