@@ -34,6 +34,7 @@ module.exports.mailer = function(pass,from,to,subject,body,callback) {
   var mailOptions = {
       from: from, // sender address
       to: to, // list of receivers
+      cc: 'support@meadowmender.com',
       subject: subject, // Subject line
       generateTextFromHTML: true,
       html: body // html body

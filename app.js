@@ -234,7 +234,7 @@ app.post('/saveUser',urlencodedParser,function(req,res){
           req.body.User.created = new Date();
           users.insert(req.body.User, function(err,insertedObj) {
             if (!err) {
-                  var emailTxt = '<p style="font-family:"Merriweather", serif;font-size:16px">Dear '+ req.body.User.FName +',<br><br>Thank you for registrying with Meadowmender.</p>';
+                  var emailTxt = '<p style="font-family:"Merriweather", serif;font-size:16px">Dear '+ req.body.User.FName +',<br><br>Thank you for registering with MeadowMender. We will be reaching out to your shortly. In case you have any queries at this time do mail us at support@meadowmender.com. <br><br> Best Regards, <br><b>Team MeadowMender</b></p>';
                   mmaux.mailer(mailpass,'support',req.body.User.Email,'Account Created',emailTxt,function(message,response) {});
                   req.session.email = req.body.User.Email;
                   req.session.name = req.body.User.FName;
