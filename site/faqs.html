@@ -56,6 +56,108 @@
         </div>
       </nav>
 
+      <div class="modal" id="submitted_notification" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Success!</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                 Your query has been submitted.
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-primary" >Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="error_modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="error_modal-title-id"></h4>
+          </div>
+          <div class="modal-body">
+          <span class="glyphicon glyphicon-remove-sign"></span>
+            <p id="error_modal-p-id">
+
+            </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-primary" id="error_modal-close">Close</button>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <div class="modal" id="warning_modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="warning_modal-title-id"></h4>
+          </div>
+          <div class="modal-body">
+          <span class="glyphicon glyphicon-warning-sign"></span>
+            <p id="warning_modal-p-id" style="text-align:left">
+
+            </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="askUs()">Close</button>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+      <div class="modal" id="ask_a_query" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Have a question?</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                 We are glad to be of assistance. Please type in your query with your email address and we will get back to you right away.
+              </p>
+              <br />
+              <div class="form-group" id="form-group_login_username">
+                <label for="username">Email:</label>
+              </div>
+              <input type="email" class="form-control" name="email" id="query_email" placeholder="Your Email" required/>
+              <br />
+              <div class="form-group" id="form-group_login_query">
+                <label for="query">Query:</label>
+              </div>
+              <textarea class="form-control" rows="5" id="query" placeholder="Type in your query here..."></textarea>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-warning left" >Close</button>
+            <button type="button" data-dismiss="modal" class="btn btn-primary right" onclick="submitQuery()" >Submit Query</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="Floating">
+      <p style="opacity:1.0;font-size:12px">
+        Have a question?
+      </p>
+      <button class="btn btn-success" style="opacity:1.0;text-shadow:1px 1px 2px black" onclick="askUs()">Ask Us!</button>
+    </div>
+
+
 
       <a class="to_top" href="#" style="display: block;"><i class="fa fa-angle-up fa-2x"></i></a>
 
@@ -88,23 +190,23 @@
               <li class="page">Crops/Trees will be inspected clearly for health, pests, weeds etc. and this will be reported back to you. We will&nbsp;also highlight&nbsp;fertilization and&nbsp;manuring needs.</li>
               <li class="page">We will communicate about produce-gathering opportunities as the season approaches, for mangoes, jack fruit, coconuts, etc.</li>
               <li class="page">Any Unauthorized Activities identified at your site during our visits&nbsp;will be informed to you/ your local contact via email or by telephone depending on the urgency – so that you can take further action as needed.</li>
-              <li class="page">Access to our <strong>On-Demand&nbsp;Services</strong>.&nbsp;You may choose to avail our On-Demand&nbsp;Services <strong style="color: #33ccff;">at any point in time</strong> as part of the care package. Read more about on demand services <strong style="color: #33ccff;"><a href="/services#onDemand">here</a>.</strong></li>
+              <li class="page">Access to our <strong>On-Demand&nbsp;Services</strong>.&nbsp;You may choose to avail our On-Demand&nbsp;Services <strong style="color: #33ccff;">at any point in time</strong> as part of the care package. Read more about On-Demand services <strong style="color: #33ccff;"><a href="/services#onDemand">here</a>.</strong></li>
               </ol>
         </div>
         <div class="row">
               <p class="statictext"><br><strong>Q3: Can I pay my land tax through your organization ?</strong></p>
             </div>
         <div class="row">
-          <p class="statictext"><strong>A.</strong> Yes, we can assist you will paying your land tax as part of our On Demand service.</p>
+          <p class="statictext"><strong>A.</strong> Yes, we can assist you will paying your land tax as part of our On-Demand service.</p>
         </div>
         <div class="row">
-              <p class="statictext"><br><strong>Q4: How are On Demand Services Charged ?</strong></p>
+              <p class="statictext"><br><strong>Q4: How are On-Demand Services Charged ?</strong></p>
             </div>
         <div class="row">
-          <p class="statictext"><strong>A.</strong> On Demand Services are charged on actuals + a nominal service fee. Once you choose to avail one of our On Demand Services we will prepare a quote in line with current competitive market pricing. Once you approve the quote – We will get right to work! When the work is complete, we will send you a post implementation report with pictures of the work performed.</p>
+          <p class="statictext"><strong>A.</strong> On-Demand Services are charged on actuals + a nominal service fee. Once you choose to avail one of our On Demand Services we will prepare a quote in line with current competitive market pricing. Once you approve the quote – We will get right to work! When the work is complete, we will send you a post implementation report with pictures of the work performed.</p>
         </div>
         <div class="row">
-              <p class="statictext"><br><strong>Q5: Can I request for an On Demand Service without going in for a Care Package ?</strong></p>
+              <p class="statictext"><br><strong>Q5: Can I request for an On-Demand Service without going in for a Care Package ?</strong></p>
             </div>
         <div class="row">
           <p class="statictext"><strong>A.</strong> Unfortunately we are unable to provide an On Demand Service to you without a valid Care Package.</p>

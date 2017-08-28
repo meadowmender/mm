@@ -58,9 +58,10 @@ module.exports.mailer = function(pass,from,to,subject,body,callback) {
 }
 
 
-module.exports.bccmailer = function(pass,from,to,subject,body,callback) {
+module.exports.ccmailer = function(pass,from,cc,subject,body,callback) {
 
   //encoding from:
+
 
   if (from == "support") {
     from = '"MeadowMender Support" <no-reply@meadowmender.com>';
@@ -81,7 +82,8 @@ module.exports.bccmailer = function(pass,from,to,subject,body,callback) {
   // setup email data with unicode symbols
   var mailOptions = {
       from: from, // sender address
-      bcc: to, // list of receivers
+      cc: cc, // list of receivers
+      to: 'support@meadowmender.com',
       subject: subject, // Subject line
       generateTextFromHTML: true,
       html: body // html body

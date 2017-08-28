@@ -6,11 +6,53 @@ function deleteCookie(name) {
     document.cookie = name +'=;path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
+function clean(input) {
+  var regEx = /<|>/g;
+  return input.replace(regEx," ");
+}
+
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires="+ d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function askUs() {
+  $('#ask_a_query').modal('show');
+}
+
+function submitQuery() {
+  if ($('#query_email').val() == "") {
+    $('#warning_modal-title-id').text('Invalid Input');
+    $('#warning_modal-p-id').text('Please provide a valid email ID.');
+    setTimeout(function(){ $('#warning_modal').modal('show');return;}, 100);
+  } else if (!validateEmail($('#query_email').val())) {
+    $('#warning_modal-title-id').text('Invalid Input');
+    $('#warning_modal-p-id').text('Please provide a valid email ID.');
+    setTimeout(function(){ $('#warning_modal').modal('show');return;}, 100);
+  } else if ($('#query').val() == "") {
+    $('#warning_modal-title-id').text('Invalid Input');
+    $('#warning_modal-p-id').text('Please provide a query.');
+    setTimeout(function(){ $('#warning_modal').modal('show');return;}, 100);
+  } else {
+    $.ajax({
+     type  : 'POST',
+     url   : '/submitQuery',
+     data  : {"email":$('#query_email').val(),"query":clean($('#query').val())},
+     success: function(res) {
+       if (res == 'mail sent') {
+         setTimeout(function(){ $('#submitted_notification').modal('show'); }, 500);
+       }
+      },
+      error : function (res) {
+        $('#error_modal-title-id').text('Error');
+        $('#warning_modal-p-id').text('There has been an error communicating with server. Please try again after some time.');
+        setTimeout(function(){ $('#error_modal').modal('show');}, 500);
+      }
+    })
+
+  }
 }
 
 function getCookie(cname) {
@@ -308,7 +350,7 @@ function showSummary() {
       }
       if (to_be_confirmed) {
         table_rest += '<tr style="font-weight:bold;color:#011a63"><td></td><td> Annual Total </td><td></td><td>To be confirmed.</td></tr></tbody></table>';
-        summary_extra = '<hr><br><br><p style="font-size:20px">You will be able to trial our services by just paying the amount for the first three months. This amount will be confirmed with you shortly. The remaining amount can be paid at the end of the three month tenure.</p>'
+        summary_extra = '<hr><br><br><p style="font-size:20px">Note: You will be able to trial our services by just paying the amount for the first three months. This amount will be confirmed with you shortly. The remaining amount can be paid at the end of the three month tenure.</p>'
 
       } else {
         table_rest += '<tr style="font-weight:bold;color:#011a63"><td></td><td> Annual Total </td><td></td><td>&#8377;' + location_sum + '</td></tr></tbody></table>';

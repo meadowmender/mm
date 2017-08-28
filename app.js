@@ -129,6 +129,10 @@ mongoclient.connect("mongodb://worker:" + process.argv[2] + "@localhost:27017/me
 
 });
 
+app.post('/submitQuery',function(req,res) {
+  mmaux.ccmailer(mailpass,'support',req.body.email,'Query',req.body.query,function(message,response) {res.send('mail sent')});
+})
+
 
 
 app.get('/', function(req,res) {

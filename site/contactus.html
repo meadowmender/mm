@@ -56,6 +56,108 @@
         </div>
       </nav>
 
+      <div class="modal" id="submitted_notification" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Success!</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                 Your query has been submitted.
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-primary" >Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="error_modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="error_modal-title-id"></h4>
+          </div>
+          <div class="modal-body">
+          <span class="glyphicon glyphicon-remove-sign"></span>
+            <p id="error_modal-p-id">
+
+            </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-primary" id="error_modal-close">Close</button>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+    <div class="modal" id="warning_modal" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title" id="warning_modal-title-id"></h4>
+          </div>
+          <div class="modal-body">
+          <span class="glyphicon glyphicon-warning-sign"></span>
+            <p id="warning_modal-p-id" style="text-align:left">
+
+            </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="askUs()">Close</button>
+        </div>
+
+      </div>
+    </div>
+    </div>
+
+      <div class="modal" id="ask_a_query" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Have a question?</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                 We are glad to be of assistance. Please type in your query with your email address and we will get back to you right away.
+              </p>
+              <br />
+              <div class="form-group" id="form-group_login_username">
+                <label for="username">Email:</label>
+              </div>
+              <input type="email" class="form-control" name="email" id="query_email" placeholder="Your Email" required/>
+              <br />
+              <div class="form-group" id="form-group_login_query">
+                <label for="query">Query:</label>
+              </div>
+              <textarea class="form-control" rows="5" id="query" placeholder="Type in your query here..."></textarea>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-warning left" >Close</button>
+            <button type="button" data-dismiss="modal" class="btn btn-primary right" onclick="submitQuery()" >Submit Query</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="Floating">
+      <p style="opacity:1.0;font-size:12px">
+        Have a question?
+      </p>
+      <button class="btn btn-success" style="opacity:1.0;text-shadow:1px 1px 2px black" onclick="askUs()">Ask Us!</button>
+    </div>
+
+
 
       <a class="to_top" href="#" style="display: block;"><i class="fa fa-angle-up fa-2x"></i></a>
 
