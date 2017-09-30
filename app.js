@@ -140,6 +140,11 @@ app.get('/', function(req,res) {
   res.sendFile(__dirname + "/site/index.html");
 });
 
+app.get('/admin', function(req,res) {
+  console.log(getTimeStamp() + 'Admin|' + req.connection.remoteAddress)
+  res.sendFile(__dirname + "/site/admin.html");
+});
+
 app.get('/login', function(req,res) {
   console.log(getTimeStamp() + 'Login|' + req.connection.remoteAddress)
   res.sendFile(__dirname + "/site/login.html");

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>MeadowMender | Land Maintenance Services in Kerala.</title>
+  <meta property="og:url" content="https://www.meadowmender.com/" />
+  <meta property="og:image" content="https://www.meadowmender.com/images/MeadowMender.png" />
+  <meta property="og:title" content="MeadowMender. Your feet on the ground!" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="MeadowMender is a subscription based land care service provider. We presently operate in the state of Kerala and provide a wide variety of services. Please do visit our website." />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css" >
+  <link rel="stylesheet" href="css/main.css" >
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/sha256.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script>
+
+  $(document).ready(function(){
+
+  });
+  </script>
+</head>
+<body class="admin">
+  <nav class="navbar navbar-default">
+        <div class="nav-container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+          <a class="heading" href="/">MeadowMender</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <!--  <li style="padding-right:15px"><a href="/signup"  >Sign-Up</a></li>
+              <li style="padding-right:15px"><a href="/lms"  >What we do!</a></li>
+              <li style="padding-right:15px"><a href="/howitworks"  >How it works!</a></li>
+              <li style="padding-right:15px"><a href="/login"  >Login</a></li>    </ul> -->
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+
+      <div id="processingModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="processingModalLabel">
+        <div class="modal-dialog">
+          <div class = "modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body" style="text-align:center">
+              <i class="fa fa-circle-o-notch fa-spin" style="font-size:72px"></i>
+              <br />
+                <p id="processingMessage"></p>
+              </div>
+              <div class="modal-footer">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="modal" id="invalid_password" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Uh - oh!</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                 The username or password is incorrect.
+              </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-primary" >Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+      <div class="container">
+        <div class="row top-spacer">
+        </div>
+        <div class="row" >
+          <div class="col-sm-3">
+          </div>
+          <div class="col-sm-6 login" >
+            <h2 class="heading">Login</h2>
+            <div class="form-group" id="form-group_login_username">
+              <label for="username">Username:</label>
+            </div>
+            <input type="email" class="form-control" name="email" id="query_username" placeholder="Your Email" required/>
+            <br />
+            <div class="form-group" id="form-group_login_password">
+              <label for="password">Password:</label>
+            </div>
+            <input type="password" class="form-control" name="email" id="login_password" required/>
+            <div>
+              <p class="forgot-password"> <a href="/forgotPassword" style="float:left">Forgot password</a></p>
+              <p class="forgot-password"> <a href="/signup" style="float:right">New user Sign-up</a></p>
+            </div>
+            <br />
+            <div class="row" id="login" style="padding-top:15px;text-align:center">
+              <button class="btn btn-primary btn-lg" onclick="return doLogin('');">Login</button>
+            </div>
+          </div>
+          <div class="col-sm-3">
+          </div>
+        </div>
+        <div class="row top-spacer">
+        </div>
+
+      </div>
+
+      <footer>
+      <div class="footer" id="footer">
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
+                <h3> Meadowmender.com </h3>
+                <ul>
+                  <li> <a href="/aboutus" target="_blank"> About Us </a> </li>
+                  <li> <a href="/contactus" target="_blank"> Contact Us </a> </li>
+                    <!--<li> <a href="#"> Careers </a> </li>
+                    <li> <a href="#"> Advertise with us </a> </li>-->
+
+                </ul>
+            </div>
+            <!--<div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
+              <h3> Products & Services </h3>
+              <ul>
+                    <li> <a href="#"> Gift Registers </a> </li>
+                    <li> <a href="#"> Sell your products on our site. </a> </li>
+                    <li> <a href="#"> Partner Login. </a> </li>
+                </ul>
+            </div>-->
+            <div class="col-lg-2 col-md-3 col-sm-6 col-xs-12 ">
+              <h3> Help </h3>
+              <ul>
+                    <li> <a href="/faqs" target="_blank"> FAQs + T&C </a> </li>
+                    <li> <a href="/howitworks" target="_blank"> How it works </a> </li>
+                    <!--<li> <a href="#"> Privacy Policy </a> </li>-->
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 ">
+              <h3> Connect with us </h3>
+              <ul class="social">
+                  <li> <a href="https://www.facebook.com/MeadowMender" target="#"> <i class=" fa fa-facebook">   </i> </a> </li>
+                  <li> <a href="https://twitter.com/MeadowMender" target="#"> <i class="fa fa-twitter">   </i> </a> </li>
+              </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 ">
+           <!--     <h3> Join our newsletter </h3>
+                <ul>
+                    <li>
+                        <div class="input-append newsletter-box text-center">
+                            <input type="text" class="full text-center" placeholder="Email ">
+                            <button class="btn btn-success" type="button"> Thank you! <i class="fa fa-long-arrow-right"> </i> </button>
+                        </div>
+                    </li>
+                </ul>-->
+                <h3> Learn More </h3>
+                <p>MeadowMender provides land maintenance services to land owners with property in the state of Kerala. Click here to learn more!</p><br>
+                <div style="text-align:center">
+                  <button class="btn bt-lg btn-default" onclick="location.href = '/lms'">Learn More</button>
+                </div>
+            </div>
+
+        </div>
+        <!--/.row-->
+      </div>
+      <!--/.container-->
+      </div>
+      <!--/.footer-->
+      <div class="footer-bottom">
+      <div class="container">
+      <div class="row">
+        <div class="col-sm-2">
+          <script language="JavaScript" type="text/javascript">
+          TrustLogo("https://www.meadowmender.com/images/comodo_secure_seal_100x85_transp.png", "CL1", "none");
+          </script>
+          <a  href="https://www.instantssl.com/" id="comodoTL">Essential SSL</a>        </div>
+        <div class="col-sm-8" style="padding-top:20px">
+          <p class="pull-left"> Copyright © meadowmender.com 2017 </p>
+          <br />
+          </div>
+          <div class="col-sm-2" style="padding-top:20px">
+            <p class="pull-right" style="padding-top:6px"> Design by <a href="mailto:trznt.technologies@gmail.com" style="color:#ffffff">trznt</a></a>.</p>
+           </div>
+
+      </div>
+
+
+      </div>
+      </div>
+      <!--/.footer-bottom-->
+      </footer>
+
+
+</body>
+</html>

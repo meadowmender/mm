@@ -25,6 +25,10 @@ div.image.statictext {
   text-align: center;
 }
 
+.admin {
+  background-color: #014B63
+}
+
 h3.statictext {
   color: #33ccff;
 }
