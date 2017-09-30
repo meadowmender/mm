@@ -474,18 +474,18 @@ app.post('/setPassword', urlencodedParser, function (req,res){
 });
 
 app.post('/plogin',urlencodedParser,function(req,res){
-  //console.log("Performing login with " +  req.body.attempt + " " + req.body.gensalt);
+  console.log("Performing login with " +  req.body.attempt + " " + req.body.gensalt);
 
   var user = meadow.collection('Users');
   var qryStr = req.query.eventID;
   try {
-    user.find({"Email" : req.body.user},{_id:0,Hash:1,FName:1}).toArray(function(err,docs) {
+    user.find({"Email" : req.body.email},{_id:0,Hash:1,FName:1}).toArray(function(err,docs) {
       if (!err){
         if (docs.length == 0) {res.end("")}
         else {
-          //console.log("Key from DB is " + docs[0].KEY);
+          console.log("Key from DB is " + docs[0].KEY);
           var trypass = sha256(req.body.gensalt + docs[0].Hash);
-          //console.log("Try Pass is " + trypass);
+          console.log("Try Pass is " + trypass);
           if (req.body.attempt == trypass) {
             req.session.email = req.body.email;
             req.session.name = docs[0].FName;
