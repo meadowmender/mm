@@ -6,6 +6,70 @@ function deleteCookie(name) {
     document.cookie = name +'=;path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 
+function assistedSignUp() {
+  if ($('#qSName').val().length == 0) {
+    $('#warning_modal-title-id2').text('Warning');
+    $('#warning_modal-p-id2').text('Please provide a valid name.');
+    $('#warning_modal2').modal('show');
+  } else if ($('#qSEmail').val().length == 0)  {
+    $('#warning_modal-title-id2').text('Warning');
+    $('#warning_modal-p-id2').text('Please provide a valid email.');
+    $('#warning_modal2').modal('show');
+  } else if (!validateEmail($('#qSEmail').val())) {
+    $('#warning_modal-title-id2').text('Invalid Input');
+    $('#warning_modal-p-id2').text('Please provide a valid email ID.');
+    $('#warning_modal2').modal('show');
+  } else if ($('#qSPhone').val().length == 0) {
+    $('#warning_modal-title-id2').text('Invalid Input');
+    $('#warning_modal-p-id2').text('Please provide a valid phone number.');
+    $('#warning_modal2').modal('show');
+  } else {
+      var phone;
+      if ($('#qSPhone').val().length == 0) {
+        phone = "";
+      } else {
+        phone = $('#qSPhone').val();
+      }
+      $.ajax({
+       type  : 'POST',
+       url   : '/verifyRecaptcha',
+       data  : {"Response":grecaptcha.getResponse()},
+       success: function(res) {
+         if (res.success) {
+           var newReg = {};
+           newReg.name = $('#qSName').val();
+           newReg.email = $('#qSEmail').val();
+           newReg.phone = phone;
+           $.ajax({
+             type  : 'POST',
+             url   : '/newReg',
+             data :{"newReg":newReg},
+             success: function(response) {
+               $('#assistedSignUpButton').hide();
+               $('#assistedSignUpText').html('Thank you! Our team will get in touch with you shortly!');
+             },
+             error : function (response) {
+               $('#assistedSignUpButton').hide();
+               $('#assistedSignUpText').html('There was an error processing your request. Please try again.');
+             }
+           })
+         } else if (res["error-codes"][0] == "missing-input-response") {
+            $('#warning_modal-title-id2').text('Missing Input');
+            $('#warning_modal-p-id2').text('Please click checkbox to verify that you are a human :)');
+            $('#warning_modal2').modal('show');
+          }
+        },
+        error : function (res) {
+          $('#warning_modal-title-id2').text('Error');
+          $('#warning_modal-p-id2').text("Error in validating captcha response - " + res.error_codes);
+          $('#warning_modal2').modal('show');
+          $('#assistedSignUpButton').hide();
+          $('#assistedSignUpText').html('Apologies. There was an error processing your request. Please refresh your browser and try again.');
+        }
+      })
+    }
+}
+
 function clean(input) {
   var regEx = /<|>/g;
   return input.replace(regEx," ");

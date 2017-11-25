@@ -81,7 +81,7 @@ li.page {
   text-align: center;
   padding: 10px;
     position: fixed;
-    top: 680px;
+    top: 110px;
     right: 20px;
     height: 80px;
     width: 140px;
@@ -150,7 +150,6 @@ li.page {
   background-color: #ffffff;
   padding: 20px;
   padding-top: 40px;
-  border-radius: 10px
 }
 
 .icon_wrap {

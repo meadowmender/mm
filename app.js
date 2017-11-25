@@ -234,6 +234,23 @@ app.post('/getsalt',urlencodedParser,function(req,res) {
   res.end(rand(160,36));
 });
 
+app.post('/newReg',urlencodedParser,function(req,res) {
+  //req.session.email = null;
+  //req.session.user = null;
+  var newReg = meadow.collection('NewReg');
+  req.body.newReg.created = new Date();
+  newReg.insert(req.body.newReg, function(err,insertedObj) {
+    if (!err) {
+      var emailTxt = "Name: " + req.body.newReg.name + "<br>" + "Email: " + req.body.newReg.email + "<br>" + "Phone: " + req.body.newReg.phone;
+      mmaux.mailernocc(mailpass,'support','support@meadowmender.com','New Reg Assist',emailTxt,function(message,response) {});
+      res.end('Success');
+    }
+    else {
+      res.end('Fail');
+    }
+  })
+});
+
 app.post('/saveUser',urlencodedParser,function(req,res){
   var users = meadow.collection('Users');
   try {
