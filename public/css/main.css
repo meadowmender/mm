@@ -215,6 +215,24 @@ div.mid-row-block:hover {
   font-size: 20px;
 }
 
+.front_page_service {
+  padding-top: 60px;
+  padding-left: 90px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.front_page_service_desc {
+  padding-top: 20px;
+  padding-left: 90px;
+  font-size: 24px;
+}
+
+.large {
+  font-size: 100px;
+  color: rgb(45, 203, 115);
+}
+
 
 
 @media screen and (max-width:500px) {
