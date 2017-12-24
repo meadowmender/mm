@@ -216,7 +216,7 @@ div.mid-row-block:hover {
 
 .front_page_service {
   font-family: "Cinzel Decorative";
-  padding-top: 60px;
+  padding-top: 30px;
   padding-left: 90px;
   font-size: 36px;
   font-weight: bold;
@@ -524,6 +524,27 @@ body {
   color: #ffffff;
   text-align: right;
 
+}
+
+
+
+.how-it-works::before {
+  background-image: url('/images/front_page/coconut-background.jpeg');
+  position: relative;
+}
+
+.how-it-works {
+  background-image: url('/images/front_page/coconut-background.jpeg');
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 1px 1px #000000;
+}
+
+.how-it-works-content{
+  opacity: 1.0;
+  padding: 60px;
+  color: #ffffff;
+  font-size: 64px;
+  position: relative;
 }
 
 .label {
